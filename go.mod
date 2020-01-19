@@ -1,6 +1,3 @@
-module github.com/guanzhi/GmSSL
+module github.com/bd4gm/GmSSL
 
 go 1.13
-
-replace github.com/bd4gm/GmSSL => ../GmSSL
-
