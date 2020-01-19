@@ -49,8 +49,9 @@
 package sm3
 
 import (
-	"gmssl"
 	"hash"
+
+	"github.com/bd4gm/GmSSL/go/gmssl"
 )
 
 type digest struct {

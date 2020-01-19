@@ -49,9 +49,10 @@
 package main
 
 import (
-	"gmssl"
-	"gmssl/sm3"
 	"fmt"
+
+	"github.com/bd4gm/GmSSL/go/gmssl"
+	"github.com/bd4gm/GmSSL/go/gmssl/sm3"
 )
 
 func main() {
@@ -103,7 +104,7 @@ func main() {
 	for _, engine := range engines {
 		fmt.Print(" " + engine)
 	}
-	fmt.Println("\n");
+	fmt.Println("\n")
 
 	/* SM3 digest with GmSSL-Go API */
 	sm3ctx, _ := gmssl.NewDigestContext("SM3")
@@ -134,14 +135,14 @@ func main() {
 	encryptor, _ := gmssl.NewCipherContext("SMS4", key, iv, true)
 	ciphertext1, _ := encryptor.Update([]byte("hello"))
 	ciphertext2, _ := encryptor.Final()
-	ciphertext := make([]byte, 0, len(ciphertext1) + len(ciphertext2))
+	ciphertext := make([]byte, 0, len(ciphertext1)+len(ciphertext2))
 	ciphertext = append(ciphertext, ciphertext1...)
 	ciphertext = append(ciphertext, ciphertext2...)
 
 	decryptor, _ := gmssl.NewCipherContext("SMS4", key, iv, false)
 	plaintext1, _ := decryptor.Update(ciphertext)
 	plaintext2, _ := decryptor.Final()
-	plaintext := make([]byte, 0, len(plaintext1) + len(plaintext2))
+	plaintext := make([]byte, 0, len(plaintext1)+len(plaintext2))
 	plaintext = append(plaintext, plaintext1...)
 	plaintext = append(plaintext, plaintext2...)
 
@@ -149,9 +150,9 @@ func main() {
 	fmt.Println()
 
 	/* private key */
-	rsa_args := map[string]string {
-		"rsa_keygen_bits": "2048",
-		"rsa_keygen_pubexp" : "65537",
+	rsa_args := map[string]string{
+		"rsa_keygen_bits":   "2048",
+		"rsa_keygen_pubexp": "65537",
 	}
 
 	rsa, err := gmssl.GeneratePrivateKey("RSA", rsa_args, nil)
@@ -175,9 +176,9 @@ func main() {
 	fmt.Println()
 
 	/* SM2 key pair operations */
-	sm2keygenargs := map[string]string {
+	sm2keygenargs := map[string]string{
 		"ec_paramgen_curve": "sm2p256v1",
-		"ec_param_enc": "named_curve",
+		"ec_param_enc":      "named_curve",
 	}
 	sm2sk, _ := gmssl.GeneratePrivateKey("EC", sm2keygenargs, nil)
 	sm2sktxt, _ := sm2sk.GetText()
